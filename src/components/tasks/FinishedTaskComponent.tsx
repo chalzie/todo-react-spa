@@ -6,7 +6,7 @@ interface Props {
 
 const FinishedTaskComponent = ({ task }: Props) => {
   return (
-    <div className="task flex justify-between mb-1 unfinished">{task}</div>
+    <div className="task flex justify-between mb-1 finished">{task}</div>
   );
 };
 
