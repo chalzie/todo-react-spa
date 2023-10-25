@@ -5,6 +5,7 @@ import TaskComponent from "./tasks/TaskComponent";
 
 const TodoListComponent = ({ title }) => {
   const [tasksArray, setTasksArray] = useState([]);
+  const [doneTasksArray, setDoneTasksArray] = useState([]);
 
   const removeTask = (removedTask) => {
     const filtered = tasksArray.filter((task) => task !== removedTask);
@@ -19,13 +20,6 @@ const TodoListComponent = ({ title }) => {
   return (
     <div className="pa-1 mb-10 flex flex-col">
       <h2 className="mb-2">{title || "Todo List"}</h2>
-
-      {!tasksArray.length && (
-        <span className="font-size-3 italic">
-          No tasks yet, start by adding one:
-        </span>
-      )}
-
       <NewTaskComponent
         onAddTask={(task) => setTasksArray([...tasksArray, task])}
       />
@@ -41,6 +35,14 @@ const TodoListComponent = ({ title }) => {
           onRemoveTask={removeTask}
           onMarkAsDoneTask={markAsDone}
         />
+      ))}
+
+      {doneTasksArray.length > 0 && (
+        <h3 className="mt-10 self-center">Completed tasks</h3>
+      )}
+
+      {doneTasksArray.map((task, index) => (
+        <TaskComponent key={index} task={task} type="done" />
       ))}
     </div>
   );
