@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import NewTaskComponent from "./tasks/NewTaskComponent";
+
 const TodoListComponent = ({ title }) => {
   const [tasksArray, setTasksArray] = useState([]);
   return (
@@ -12,6 +14,9 @@ const TodoListComponent = ({ title }) => {
         </span>
       )}
 
+      <NewTaskComponent
+        onAddTask={(task) => setTasksArray([...tasksArray, task])}
+      />
     </div>
   );
 };
