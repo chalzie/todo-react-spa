@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FcPlus } from "react-icons/fc";
+import { MdSave } from "react-icons/md";
 
 import "./styles.scss";
 
@@ -21,11 +21,13 @@ const NewTaskComponent = ({ onAddTask }) => {
         className="w-full p-2"
       />
       {taskTitle && (
-        <FcPlus
-          size="1.25em"
-          className="self-center ml-3 cursor-pointer"
-          onClick={() => addNewTask()}
-        />
+        <div className="save-icon ml-2">
+          <MdSave
+            size="1.25em"
+            className="cursor-pointer"
+            onClick={() => addNewTask()}
+          />
+        </div>
       )}
     </div>
   );
