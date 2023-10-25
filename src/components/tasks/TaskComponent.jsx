@@ -1,6 +1,6 @@
 import { MdOutlineDone, MdOutlineRemoveCircle } from "react-icons/md";
 
-import "./styles.scss";
+import "./_styles.scss";
 
 const TaskComponent = ({
   task = null,

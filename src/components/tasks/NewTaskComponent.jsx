@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdSave } from "react-icons/md";
 
-import "./styles.scss";
+import "./_styles.scss";
 
 const NewTaskComponent = ({ onAddTask }) => {
   const [taskTitle, setTaskTitle] = useState("");
