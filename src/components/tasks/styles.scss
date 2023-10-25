@@ -18,3 +18,39 @@
     color: green;
   }
 }
+
+.task {
+  width: 320px;
+  padding: 0.6em;
+
+  background-color: rgba(#1b2241, 0.1);
+  color: #4d2c5a;
+  border-radius: 0.25rem;
+
+  &.unfinished {
+    background-color: rgba(#1b2241, 0.6);
+    color: white;
+
+    &:hover {
+      background-color: #4d2c5a;
+    }
+  }
+
+  &:hover {
+    .actions {
+      .done,
+      .remove {
+        transform: scale(1.5);
+        transition: transform 0.3s;
+      }
+
+      .done:hover {
+        color: green;
+      }
+
+      .remove:hover {
+        color: red;
+      }
+    }
+  }
+}
