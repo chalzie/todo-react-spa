@@ -2,33 +2,31 @@ import { MdOutlineDone, MdOutlineRemoveCircle } from "react-icons/md";
 
 import "./_styles.scss";
 
+interface Props {
+  task: string | null;
+  onRemoveTask: (task: string) => void;
+  onMarkAsDoneTask: (task: string) => void;
+}
+
 const TaskComponent = ({
   task = null,
-  type = "",
   onRemoveTask,
   onMarkAsDoneTask,
-}) => {
-  const taskClassNames = ["task", "flex", "justify-between", "mb-1"];
-  type === "done"
-    ? taskClassNames.push("finished")
-    : taskClassNames.push("unfinished");
-
+}: Props) => {
   return (
-    <div className={taskClassNames.join(" ")}>
+    <div className="task flex justify-between mb-1 unfinished">
       {task && <span>{task}</span>}
 
-      {type !== "done" && (
-        <div className="actions">
-          <MdOutlineDone
-            className="done cursor-pointer mr-2"
-            onClick={() => onMarkAsDoneTask(task)}
-          />
-          <MdOutlineRemoveCircle
-            className="remove cursor-pointer"
-            onClick={() => onRemoveTask(task)}
-          />
-        </div>
-      )}
+      <div className="actions">
+        <MdOutlineDone
+          className="done cursor-pointer mr-2"
+          onClick={() => onMarkAsDoneTask(task as string)}
+        />
+        <MdOutlineRemoveCircle
+          className="remove cursor-pointer"
+          onClick={() => onRemoveTask(task as string)}
+        />
+      </div>
     </div>
   );
 };

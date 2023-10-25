@@ -2,23 +2,28 @@ import { useState } from "react";
 
 import NewTaskComponent from "./tasks/NewTaskComponent";
 import TaskComponent from "./tasks/TaskComponent";
+import FinishedTaskComponent from "./tasks/FinishedTaskComponent";
 
-const TodoListComponent = ({ title }) => {
-  const [tasksArray, setTasksArray] = useState([]);
-  const [doneTasksArray, setDoneTasksArray] = useState([]);
+interface Props {
+  title?: string;
+}
 
-  const addTask = (taskToAdd) => {
+const TodoListComponent = ({ title }: Props) => {
+  const [tasksArray, setTasksArray] = useState([] as string[]);
+  const [doneTasksArray, setDoneTasksArray] = useState([] as string[]);
+
+  const addTask = (taskToAdd: string) => {
     if (!tasksArray.includes(taskToAdd)) {
       setTasksArray([...tasksArray, taskToAdd]);
     }
   };
 
-  const removeTask = (removedTask) => {
+  const removeTask = (removedTask: string) => {
     const filtered = tasksArray.filter((task) => task !== removedTask);
     setTasksArray(filtered);
   };
 
-  const markAsDone = (finishedTask) => {
+  const markAsDone = (finishedTask: string) => {
     if (!doneTasksArray.includes(finishedTask)) {
       setDoneTasksArray([...doneTasksArray, finishedTask]);
     }
@@ -29,7 +34,7 @@ const TodoListComponent = ({ title }) => {
     <div className="pa-1 mb-10 flex flex-col">
       <h2 className="mb-2">{title || "Todo List"}</h2>
 
-      <NewTaskComponent onAddTask={(task) => addTask(task)} />
+      <NewTaskComponent onAddTask={(task: string) => addTask(task)} />
 
       {!tasksArray.length && (
         <div className="font-size-4 italic self-center">
@@ -51,7 +56,7 @@ const TodoListComponent = ({ title }) => {
       )}
 
       {doneTasksArray.map((task, index) => (
-        <TaskComponent key={index} task={task} type="done" />
+        <FinishedTaskComponent key={index} task={task} />
       ))}
     </div>
   );

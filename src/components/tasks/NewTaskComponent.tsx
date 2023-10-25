@@ -3,7 +3,11 @@ import { MdSave } from "react-icons/md";
 
 import "./_styles.scss";
 
-const NewTaskComponent = ({ onAddTask }) => {
+interface Props {
+  onAddTask: (task: string) => void;
+}
+
+const NewTaskComponent = ({ onAddTask }: Props) => {
   const [taskTitle, setTaskTitle] = useState("");
 
   const addNewTask = () => {
