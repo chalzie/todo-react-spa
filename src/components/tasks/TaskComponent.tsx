@@ -1,21 +1,17 @@
-import { MdOutlineDone, MdOutlineRemoveCircle } from "react-icons/md";
+import { MdOutlineDone, MdOutlineRemoveCircle } from 'react-icons/md';
 
-import "./_styles.scss";
+import './_styles.scss';
 
 interface Props {
-  task: string | null;
+  task: string;
   onRemoveTask: (task: string) => void;
   onMarkAsDoneTask: (task: string) => void;
 }
 
-const TaskComponent = ({
-  task = null,
-  onRemoveTask,
-  onMarkAsDoneTask,
-}: Props) => {
+function TaskComponent({ task, onRemoveTask, onMarkAsDoneTask }: Props) {
   return (
     <div className="task flex justify-between mb-1 unfinished">
-      {task && <span>{task}</span>}
+      <span>{task}</span>
 
       <div className="actions">
         <MdOutlineDone
@@ -29,6 +25,6 @@ const TaskComponent = ({
       </div>
     </div>
   );
-};
+}
 
 export default TaskComponent;

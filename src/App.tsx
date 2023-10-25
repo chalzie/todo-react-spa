@@ -1,8 +1,8 @@
-import TodoListComponent from "./components/TodoListComponent";
+import TodoListComponent from './components/TodoListComponent';
 
-import "./App.scss";
+import './App.scss';
 
-const App = () => {
+function App() {
   return (
     <div className="app">
       <h1 className="my-10">My Todo App</h1>
@@ -12,6 +12,6 @@ const App = () => {
       <TodoListComponent />
     </div>
   );
-};
+}
 
 export default App;

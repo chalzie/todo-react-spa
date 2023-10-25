@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { MdSave } from "react-icons/md";
+import { useState } from 'react';
+import { MdSave } from 'react-icons/md';
 
-import "./_styles.scss";
+import './_styles.scss';
 
 interface Props {
   onAddTask: (task: string) => void;
 }
 
-const NewTaskComponent = ({ onAddTask }: Props) => {
-  const [taskTitle, setTaskTitle] = useState("");
+function NewTaskComponent({ onAddTask }: Props) {
+  const [taskTitle, setTaskTitle] = useState('');
 
   const addNewTask = () => {
-    taskTitle && onAddTask(taskTitle);
-    setTaskTitle("");
+    if (taskTitle !== '') { onAddTask(taskTitle); }
+    setTaskTitle('');
   };
 
   return (
@@ -24,7 +24,7 @@ const NewTaskComponent = ({ onAddTask }: Props) => {
         placeholder="e.g. do the dishes, clean the room..."
         className="w-full p-2"
       />
-      {taskTitle && (
+      {taskTitle !== '' && (
         <div className="save-icon ml-2">
           <MdSave
             size="1.25em"
@@ -35,6 +35,6 @@ const NewTaskComponent = ({ onAddTask }: Props) => {
       )}
     </div>
   );
-};
+}
 
 export default NewTaskComponent;

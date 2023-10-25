@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import NewTaskComponent from "./tasks/NewTaskComponent";
-import TaskComponent from "./tasks/TaskComponent";
-import FinishedTaskComponent from "./tasks/FinishedTaskComponent";
+import NewTaskComponent from './tasks/NewTaskComponent';
+import TaskComponent from './tasks/TaskComponent';
+import FinishedTaskComponent from './tasks/FinishedTaskComponent';
 
 interface Props {
   title?: string;
 }
 
-const TodoListComponent = ({ title }: Props) => {
+function TodoListComponent({ title = 'Todo list' }: Props) {
   const [tasksArray, setTasksArray] = useState([] as string[]);
   const [doneTasksArray, setDoneTasksArray] = useState([] as string[]);
 
@@ -32,11 +32,11 @@ const TodoListComponent = ({ title }: Props) => {
 
   return (
     <div className="pa-1 mb-10 flex flex-col">
-      <h2 className="mb-2">{title || "Todo List"}</h2>
+      <h2 className="mb-2">{title}</h2>
 
       <NewTaskComponent onAddTask={(task: string) => addTask(task)} />
 
-      {!tasksArray.length && (
+      {tasksArray.length === 0 && (
         <div className="font-size-4 italic self-center">
           No tasks yet, start by adding one!
         </div>
@@ -55,11 +55,11 @@ const TodoListComponent = ({ title }: Props) => {
         <h3 className="mt-10 self-center">Completed tasks</h3>
       )}
 
-      {doneTasksArray.map((task, index) => (
+      {doneTasksArray.map((task: string, index: number) => (
         <FinishedTaskComponent key={index} task={task} />
       ))}
     </div>
   );
-};
+}
 
 export default TodoListComponent;
