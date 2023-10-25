@@ -7,27 +7,36 @@ const TodoListComponent = ({ title }) => {
   const [tasksArray, setTasksArray] = useState([]);
   const [doneTasksArray, setDoneTasksArray] = useState([]);
 
+  const addTask = (taskToAdd) => {
+    if (!tasksArray.includes(taskToAdd)) {
+      setTasksArray([...tasksArray, taskToAdd]);
+    }
+  };
+
   const removeTask = (removedTask) => {
     const filtered = tasksArray.filter((task) => task !== removedTask);
     setTasksArray(filtered);
   };
 
   const markAsDone = (finishedTask) => {
-    setDoneTasksArray([...doneTasksArray, finishedTask]);
+    if (!doneTasksArray.includes(finishedTask)) {
+      setDoneTasksArray([...doneTasksArray, finishedTask]);
+    }
     removeTask(finishedTask);
   };
 
   return (
     <div className="pa-1 mb-10 flex flex-col">
       <h2 className="mb-2">{title || "Todo List"}</h2>
-      <NewTaskComponent
-        onAddTask={(task) => setTasksArray([...tasksArray, task])}
-      />
+
+      <NewTaskComponent onAddTask={(task) => addTask(task)} />
+
       {!tasksArray.length && (
         <div className="font-size-4 italic self-center">
           No tasks yet, start by adding one!
         </div>
       )}
+
       {tasksArray.map((task, index) => (
         <TaskComponent
           key={index}
