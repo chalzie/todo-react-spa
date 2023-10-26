@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import NewTaskComponent from './tasks/NewTaskComponent';
-import TaskComponent from './tasks/TaskComponent';
-import FinishedTaskComponent from './tasks/FinishedTaskComponent';
+
+import TasksListComponent from './lists/TasksListComponent';
+import FinishedTasksListComponent from './lists/FinishedTasksListComponent';
 
 interface Props {
   title?: string;
@@ -36,28 +37,10 @@ function TodoListComponent({ title = 'Todo list' }: Props) {
 
       <NewTaskComponent onAddTask={(task: string) => addTask(task)} />
 
-      {tasksArray.length === 0 && (
-        <div className="font-size-4 italic self-center">
-          No tasks yet, start by adding one!
-        </div>
-      )}
+      <TasksListComponent tasks={tasksArray} markAsDone={markAsDone} removeTask={removeTask} />
 
-      {tasksArray.map((task, index) => (
-        <TaskComponent
-          key={index}
-          task={task}
-          onRemoveTask={removeTask}
-          onMarkAsDoneTask={markAsDone}
-        />
-      ))}
+      <FinishedTasksListComponent tasks={doneTasksArray} />
 
-      {doneTasksArray.length > 0 && (
-        <h3 className="mt-10 self-center">Completed tasks</h3>
-      )}
-
-      {doneTasksArray.map((task: string, index: number) => (
-        <FinishedTaskComponent key={index} task={task} />
-      ))}
     </div>
   );
 }
