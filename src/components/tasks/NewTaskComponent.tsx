@@ -20,6 +20,7 @@ function NewTaskComponent({ onAddTask }: Props) {
       <input
         value={taskTitle}
         onChange={(e) => setTaskTitle(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && addNewTask()}
         type="text"
         placeholder="e.g. do the dishes, clean the room..."
         className="w-full p-2"
