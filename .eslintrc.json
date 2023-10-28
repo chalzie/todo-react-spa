@@ -20,7 +20,8 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
     "react/no-array-index-key": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "react/prefer-stateless-function": "off"
   },
   "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
 }

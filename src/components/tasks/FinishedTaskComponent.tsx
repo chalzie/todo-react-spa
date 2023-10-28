@@ -1,13 +1,16 @@
+import React from 'react';
+
 import './_styles.scss';
 
-interface Props {
+export type FinishedTaskComponentProps = {
   task: string;
-}
+};
 
-function FinishedTaskComponent({ task }: Props) {
-  return (
-    <div className="task flex justify-between mb-1 finished">{task}</div>
-  );
+class FinishedTaskComponent extends React.Component<FinishedTaskComponentProps> {
+  render() {
+    const { task } = this.props;
+    return <div className="task flex justify-between mb-1 finished">{task}</div>;
+  }
 }
 
 export default FinishedTaskComponent;

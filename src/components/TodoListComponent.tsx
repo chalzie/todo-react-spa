@@ -1,48 +1,70 @@
-import { useState } from 'react';
+import React from 'react';
 
 import NewTaskComponent from './tasks/NewTaskComponent';
 
 import TasksListComponent from './lists/TasksListComponent';
 import FinishedTasksListComponent from './lists/FinishedTasksListComponent';
 
-interface Props {
-  title?: string;
-}
+export type TodoListProps = {
+  title?: string
+};
 
-function TodoListComponent({ title = 'Todo list' }: Props) {
-  const [tasksArray, setTasksArray] = useState([] as string[]);
-  const [doneTasksArray, setDoneTasksArray] = useState([] as string[]);
+export type TodoListState = {
+  tasks: string[],
+  doneTasks: string[]
+};
 
-  const addTask = (taskToAdd: string) => {
-    if (!tasksArray.includes(taskToAdd)) {
-      setTasksArray([...tasksArray, taskToAdd]);
+class TodoListComponent extends React.Component<TodoListProps, TodoListState> {
+  constructor(props: TodoListProps) {
+    super(props);
+    this.state = {
+      tasks: [],
+      doneTasks: [],
+    };
+  }
+
+  addTask = (taskToAdd: string) => {
+    const { tasks } = this.state;
+    if (!tasks.includes(taskToAdd)) {
+      this.setState({ tasks: [...tasks, taskToAdd] });
     }
   };
 
-  const removeTask = (removedTask: string) => {
-    const filtered = tasksArray.filter((task) => task !== removedTask);
-    setTasksArray(filtered);
+  removeTask = (removedTask: string) => {
+    const { tasks } = this.state;
+    const filtered = tasks.filter((task: string) => task !== removedTask);
+    this.setState({ tasks: filtered });
   };
 
-  const markAsDone = (finishedTask: string) => {
-    if (!doneTasksArray.includes(finishedTask)) {
-      setDoneTasksArray([...doneTasksArray, finishedTask]);
+  markAsDone = (finishedTask: string) => {
+    const { doneTasks } = this.state;
+    if (!doneTasks.includes(finishedTask)) {
+      this.setState({ doneTasks: [...doneTasks, finishedTask] });
     }
-    removeTask(finishedTask);
+    this.removeTask(finishedTask);
   };
 
-  return (
-    <div className="pa-1 mb-10 flex flex-col">
-      <h2 className="mb-2">{title}</h2>
+  render() {
+    const { title = 'New Todo List' } = this.props;
+    const { tasks, doneTasks } = this.state;
 
-      <NewTaskComponent onAddTask={(task: string) => addTask(task)} />
+    return (
+      <div className="pa-1 mb-10 flex flex-col">
+        <h2 className="mb-2">{title}</h2>
 
-      <TasksListComponent tasks={tasksArray} markAsDone={markAsDone} removeTask={removeTask} />
+        <NewTaskComponent onAddTask={(task: string) => this.addTask(task)} />
 
-      <FinishedTasksListComponent tasks={doneTasksArray} />
+        <TasksListComponent
+          tasks={tasks}
+          markAsDone={this.markAsDone}
+          removeTask={this.removeTask}
+        />
 
-    </div>
-  );
+        <FinishedTasksListComponent tasks={doneTasks} />
+
+      </div>
+    );
+  }
 }
 
 export default TodoListComponent;

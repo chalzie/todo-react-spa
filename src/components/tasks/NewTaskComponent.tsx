@@ -1,41 +1,57 @@
-import { useState } from 'react';
+import React from 'react';
+
 import { MdSave } from 'react-icons/md';
 
 import './_styles.scss';
 
-interface Props {
+export type NewTaskComponentProps = {
   onAddTask: (task: string) => void;
-}
+};
 
-function NewTaskComponent({ onAddTask }: Props) {
-  const [taskTitle, setTaskTitle] = useState('');
+export type NewTaskComponentState = {
+  title: string
+};
 
-  const addNewTask = () => {
-    if (taskTitle !== '') { onAddTask(taskTitle); }
-    setTaskTitle('');
+class NewTaskComponent extends React.Component<NewTaskComponentProps, NewTaskComponentState> {
+  constructor(props: NewTaskComponentProps) {
+    super(props);
+    this.state = {
+      title: '',
+    };
+  }
+
+  addNewTask = () => {
+    const { title } = this.state;
+    const { onAddTask } = this.props;
+    if (title !== '') { onAddTask(title); }
+    this.setState({ title: '' });
   };
 
-  return (
-    <div className="new-task flex items-center mb-3">
-      <input
-        value={taskTitle}
-        onChange={(e) => setTaskTitle(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && addNewTask()}
-        type="text"
-        placeholder="e.g. do the dishes, clean the room..."
-        className="w-full p-2"
-      />
-      {taskTitle !== '' && (
+  render() {
+    const { title } = this.state;
+
+    return (
+      <div className="new-task flex items-center mb-3">
+        <input
+          value={title}
+          onChange={(e) => this.setState({ title: e.target.value })}
+          onKeyDown={(e) => e.key === 'Enter' && this.addNewTask()}
+          type="text"
+          placeholder="e.g. do the dishes, clean the room..."
+          className="w-full p-2"
+        />
+        {title !== '' && (
         <div className="save-icon ml-2">
           <MdSave
             size="1.25em"
             className="cursor-pointer"
-            onClick={() => addNewTask()}
+            onClick={() => this.addNewTask()}
           />
         </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  }
 }
 
 export default NewTaskComponent;
